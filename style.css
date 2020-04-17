@@ -1,0 +1,87 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+}
+* {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+button {
+    font-size: 1em;
+}
+button::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+
+textarea {
+    width: 94vw;
+    height: 3em;
+    resize: none;
+    overflow: hidden;
+    display: block;
+    margin: 1em auto;
+    outline: none;
+}
+
+#div-qr-wrapper svg {
+    width: 95vw;
+    max-height: 95vh;
+}
+
+#camera-view {
+    z-index: 1;
+    visibility: hidden;
+    position: fixed;
+    max-height: 100vh;
+    max-width: 100vw;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    object-fit: cover;
+}
+
+#btn-stop-qr-scanner {
+    z-index: 3;
+    display: none;
+    position: fixed;
+    right: 1vw;
+    top: 1vh;
+    padding: 1vmin;
+    border: 1px solid #fff;
+    background-color: #f00;
+    color: #fff;
+}
+
+#qr-scanner-frame {
+    z-index: 3;
+    display: none;
+    position: fixed;
+    border: 5px solid #ff0;
+}
+.qr-scanner-frame-blur {
+    z-index: 2;
+    display: none;
+    position: fixed;
+    background: #000;
+    opacity: 0.8;
+}
+
+.toast {
+    z-index: 10;
+    position: fixed;
+    width: 80vw;
+    padding: 5vw;
+    left: 5vw;
+    bottom: 5vw;
+    background: #222;
+    color: #ccc;
+    border-radius: 3vw;
+    box-shadow: 4px 8px 16px 0 rgba(0,0,0,0.4);
+    opacity: 0.5;
+    transition: opacity 1s;
+}

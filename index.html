@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>QR PWA</title>
+
+        <link rel="icon" type="image/png" sizes="32x32" href="./favicon32x32.png">
+        <link rel="manifest" href="./site.webmanifest">
+        <link rel="stylesheet" href="./style.css">
+
+        <script src="lib/qrcodegen.js" type="application/javascript" defer></script>
+        <script src="bundle.js" type="module" defer></script>
+    </head>
+
+    <body style="text-align: center;">
+        <div>
+            <button type="button" id="btn-create-qr">Create QR Code</button>
+            <button type="button" id="btn-scan-qr">Scan QR Code</button>
+        </div>
+
+        <div id="box-create-qr" style="display: none;">
+            <textarea id="input-create-qr"></textarea>
+            <div id="div-qr-wrapper"></div>
+        </div>
+
+        <div id="box-qr-scan-result" style="display: none;">
+            <p id="txt-qr-scan-result"></p>
+            <button type="button" id="btn-qr-scan-result-copy">Copy To Clipboard</button>
+        </div>
+
+        <div>
+            <video id="camera-view" autoplay playsinline></video>
+            <button type="button" id="btn-stop-qr-scanner">Cancel</button>
+            <div id="qr-scanner-frame"></div>
+            <div id="qr-scanner-frame-blur-n" class="qr-scanner-frame-blur"></div>
+            <div id="qr-scanner-frame-blur-e" class="qr-scanner-frame-blur"></div>
+            <div id="qr-scanner-frame-blur-s" class="qr-scanner-frame-blur"></div>
+            <div id="qr-scanner-frame-blur-w" class="qr-scanner-frame-blur"></div>
+
+            <div id="div-toasts">
+                <template>
+                    <div class="toast"></div>
+                </template>
+            </div>
+
+            <input id="input-copy-to-clipboard" type="text" style="opacity: 0;" />
+        </div>
+
+    </body>
+</html>
