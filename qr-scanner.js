@@ -20,6 +20,7 @@ export function startQrScanner (callback) {
         stopQrScanner();
         callback(result);
     });
+    qrScanner.setInversionMode("both");
     qrScanner.start();
     showQrScannerVideo();
     showStopQrScannerButton();

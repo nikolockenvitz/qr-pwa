@@ -13,10 +13,11 @@
         <script src="bundle.js" type="module" defer></script>
     </head>
 
-    <body style="text-align: center;">
-        <div>
+    <body data-color-mode="light-mode" style="text-align: center;">
+        <div id="tabbar">
             <button type="button" id="btn-create-qr">Create QR Code</button>
             <button type="button" id="btn-scan-qr">Scan QR Code</button>
+            <button type="button" id="btn-settings">Settings</button>
         </div>
 
         <div id="box-create-qr" style="display: none;">
@@ -27,6 +28,13 @@
         <div id="box-qr-scan-result" style="display: none;">
             <p id="txt-qr-scan-result"></p>
             <button type="button" id="btn-qr-scan-result-copy">Copy To Clipboard</button>
+        </div>
+
+        <div id="box-settings" style="display: none;">
+            <button type="button" id="btn-light-mode">Light Mode</button>
+            <button type="button" id="btn-dark-mode">Dark Mode</button>
+            <br>
+            <button type="button" id="btn-share">Share This Site</button>
         </div>
 
         <div>
