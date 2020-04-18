@@ -10,6 +10,7 @@ const tabs = {
 let activeTabId = null;
 
 window.onload = function () {
+    loadAndApplyColorModeFromLocalStorage();
     let inputCreateQr = document.getElementById("input-create-qr");
     let txtScanResult = document.getElementById("txt-qr-scan-result");
 
@@ -42,10 +43,10 @@ window.onload = function () {
     });
 
     document.getElementById("btn-light-mode").addEventListener("click", function () {
-        document.body.setAttribute("data-color-mode", "light-mode");
+        setColorMode("light-mode");
     });
     document.getElementById("btn-dark-mode").addEventListener("click", function () {
-        document.body.setAttribute("data-color-mode", "dark-mode");
+        setColorMode("dark-mode");
     });
     document.getElementById("btn-share").addEventListener("click", function () {
         showTab("create");
@@ -54,6 +55,8 @@ window.onload = function () {
         showQrCode(text, qrWrapper);
     });
 
+    inputCreateQr.value = "";
+    qrWrapper.innerHTML = "";
     showTab("create");
 };
 
@@ -81,4 +84,16 @@ function hideActiveTab () {
     document.getElementById(tab.boxId).style.display = "none";
 
     document.getElementById("btn-stop-qr-scanner").style.display = "none";
+}
+
+const LS_COLOR_MODE = "qr-pwa-color-mode";
+function loadAndApplyColorModeFromLocalStorage () {
+    let colorMode = localStorage.getItem(LS_COLOR_MODE) || "dark-mode";
+    setColorMode(colorMode, false);
+}
+function setColorMode (colorMode, saveToLocalStorage=true) {
+    document.body.setAttribute("data-color-mode", colorMode);
+    if (saveToLocalStorage) {
+        localStorage.setItem(LS_COLOR_MODE, colorMode);
+    }
 }
