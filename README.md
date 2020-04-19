@@ -11,4 +11,4 @@ npm run build
 ```
 
 If you want to deploy it to a web-/file-server, you will need the following files:
-`icons/`, `lib/`, `bundle.js`, `favicon32x32.png`, `index.html`, `site.webmanifest` and `style.css`
+`icons/`, `lib/`, `bundle.js`, `favicon32x32.png`, `index.html`, `pwa.js`, `site.webmanifest`, `style.css` and `sw.js`
