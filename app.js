@@ -51,6 +51,9 @@ window.onload = function () {
     document.getElementById("btn-share").addEventListener("click", function () {
         showTab("create");
         let text = window.location.href;
+        if (text.endsWith("/index.html")) {
+            text = text.substring(0, text.length - "/index.html".length)
+        }
         inputCreateQr.value = text;
         showQrCode(text, qrWrapper);
     });
