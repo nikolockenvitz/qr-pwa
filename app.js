@@ -48,6 +48,10 @@ window.onload = function () {
     document.getElementById("btn-dark-mode").addEventListener("click", function () {
         setColorMode("dark-mode");
     });
+    const checkboxApplyColorModeToQrCode = document.getElementById("checkbox-apply-color-mode-to-qr-code");
+    checkboxApplyColorModeToQrCode.addEventListener("change", function () {
+        setColorModeApplicabilityForQrCode(checkboxApplyColorModeToQrCode.checked);
+    });
     document.getElementById("btn-share").addEventListener("click", function () {
         showTab("create");
         let text = window.location.href;
@@ -90,13 +94,27 @@ function hideActiveTab () {
 }
 
 const LS_COLOR_MODE = "qr-pwa-color-mode";
+const LS_APPLY_COLOR_MODE_TO_QR_CODE = "qr-pwa-color-mode-for-qr-code";
 function loadAndApplyColorModeFromLocalStorage () {
     let colorMode = localStorage.getItem(LS_COLOR_MODE) || "dark-mode";
+    let applyColorModeToQrCode = (localStorage.getItem(LS_APPLY_COLOR_MODE_TO_QR_CODE) !== "false");
     setColorMode(colorMode, false);
+    setColorModeApplicabilityForQrCode(applyColorModeToQrCode, false);
 }
 function setColorMode (colorMode, saveToLocalStorage=true) {
     document.body.setAttribute("data-color-mode", colorMode);
     if (saveToLocalStorage) {
         localStorage.setItem(LS_COLOR_MODE, colorMode);
+    }
+}
+function setColorModeApplicabilityForQrCode (applyColorModeToQrCode, saveToLocalStorage=true) {
+    const qrWrapper = document.getElementById("div-qr-wrapper");
+    if (applyColorModeToQrCode) {
+        qrWrapper.classList.add("apply-color-mode");
+    } else {
+        qrWrapper.classList.remove("apply-color-mode");
+    }
+    if (saveToLocalStorage) {
+        localStorage.setItem(LS_APPLY_COLOR_MODE_TO_QR_CODE, applyColorModeToQrCode);
     }
 }

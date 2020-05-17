@@ -98,10 +98,10 @@ textarea {
     width: 95vw;
     max-height: 95vh;
 }
-[data-color-mode=dark-mode] #div-qr-wrapper svg rect {
+[data-color-mode=dark-mode] #div-qr-wrapper.apply-color-mode svg rect {
     fill: #222;
 }
-[data-color-mode=dark-mode] #div-qr-wrapper svg path {
+[data-color-mode=dark-mode] #div-qr-wrapper.apply-color-mode svg path {
     fill: #eee;
 }
 
