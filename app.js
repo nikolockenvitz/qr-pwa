@@ -16,9 +16,10 @@ window.onload = function () {
 
     let qrWrapper = document.getElementById("div-qr-wrapper");
 
+    inputCreateQr.value = "";
+    qrWrapper.innerHTML = "";
+
     document.getElementById(tabs["create"].btnId).addEventListener("click", function () {
-        inputCreateQr.value = "";
-        qrWrapper.innerHTML = "";
         showTab("create");
     });
     document.getElementById(tabs["scan"].btnId).addEventListener("click", function () {

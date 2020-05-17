@@ -111,6 +111,11 @@ textarea {
     word-wrap: break-word;
 }
 
+#box-settings button {
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
+
 
 #camera-view {
     z-index: 1;
