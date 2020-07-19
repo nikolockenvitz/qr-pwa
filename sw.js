@@ -1,4 +1,4 @@
-let cacheName = "cache_v0.3.1";
+let cacheName = "cache_v0.3.2";
 let cachedFiles = [
     "./icons/icon192x192.png",
     "./lib/qr-scanner-worker.min.js", // TODO: use second cache only for library files?
