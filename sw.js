@@ -1,4 +1,5 @@
-let cacheName = "cache_v0.3.2";
+const url = new URL(window.location.href)
+let cacheName = `cache_${url.hostname + url.pathname}_v0.3.4`;
 let cachedFiles = [
     "./icons/icon192x192.png",
     "./lib/qr-scanner-worker.min.js", // TODO: use second cache only for library files?
