@@ -1,0 +1,182 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+* {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body[data-color-mode=light-mode] {
+    background: #fff;
+    color: #000
+}
+body[data-color-mode=dark-mode] {
+    background: #222;
+    color: #fff;
+}
+
+button {
+    font-size: 1em;
+}
+button::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+
+#tabbar {
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+}
+
+[data-color-mode=light-mode] #tabbar {
+    background: #ddd;
+    color: #000;
+}
+[data-color-mode=dark-mode] #tabbar {
+    background: #444;
+    color: #ccc;
+}
+
+#tabbar > * {
+    flex-basis: 0;
+    flex-grow: 1;
+    padding: 8px 16px;
+    float: left;
+    width: auto;
+    border: none;
+    border-radius: 0;
+    display: block;
+    outline: 0;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    background-color: inherit;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+
+[data-color-mode=light-mode] #tabbar > *:hover,
+[data-color-mode=light-mode] #tabbar > *:focus {
+    background: #eee;
+}
+[data-color-mode=light-mode] #tabbar > .active {
+    background: #fff;
+}
+
+[data-color-mode=dark-mode] #tabbar > *:hover,
+[data-color-mode=dark-mode] #tabbar > *:focus {
+    background: #3a3a3a;
+}
+[data-color-mode=dark-mode] #tabbar > .active {
+    background: #222;
+}
+
+
+
+textarea {
+    width: 94vw;
+    height: 3em;
+    resize: none;
+    overflow: hidden;
+    display: block;
+    margin: 1em auto;
+    outline: none;
+}
+[data-color-mode=dark-mode] textarea {
+    background: #444;
+    color: #ccc;
+    border: none;
+}
+
+
+#div-qr-wrapper svg {
+    width: 95vw;
+    max-height: 95vh;
+}
+[data-color-mode=dark-mode] #div-qr-wrapper.apply-color-mode svg rect {
+    fill: #222;
+}
+[data-color-mode=dark-mode] #div-qr-wrapper.apply-color-mode svg path {
+    fill: #eee;
+}
+
+
+#txt-qr-scan-result {
+    margin: 1em;
+    word-wrap: break-word;
+}
+
+#box-settings button {
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
+
+
+#camera-view {
+    z-index: 1;
+    visibility: hidden;
+    position: fixed;
+    max-height: 100vh;
+    max-width: 100vw;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    object-fit: cover;
+}
+
+#btn-stop-qr-scanner {
+    z-index: 3;
+    display: none;
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1vmin;
+    border: 1px solid #fff;
+    background-color: #f00;
+    color: #fff;
+    cursor: pointer;
+}
+
+#qr-scanner-frame {
+    z-index: 3;
+    display: none;
+    position: fixed;
+    border: 5px solid #ff0;
+}
+.qr-scanner-frame-blur {
+    z-index: 2;
+    display: none;
+    position: fixed;
+    background: #000;
+    opacity: 0.8;
+}
+
+.toast {
+    z-index: 10;
+    position: fixed;
+    padding: 20px 50px;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 15px;
+    opacity: 0.5;
+    transition: opacity 1s;
+}
+[data-color-mode=light-mode] .toast {
+    background: #222;
+    color: #ccc;
+    box-shadow: 4px 8px 16px 0 rgba(0,0,0,0.4);
+}
+[data-color-mode=dark-mode] .toast {
+    background: #444;
+    color: #ccc;
+    box-shadow: 4px 8px 16px 0 rgba(100,100,100,0.4);
+}

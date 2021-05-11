@@ -1,0 +1,16 @@
+{
+    "name": "QR PWA",
+    "short_name": "QR PWA",
+    "description": "",
+    "icons": [
+        {
+            "src": "./icons/icon192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#2a2a2e",
+    "background_color": "#2a2a2e",
+    "display": "standalone",
+    "start_url": "./index.html"
+}
