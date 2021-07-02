@@ -115,7 +115,7 @@ var LS_APPLY_COLOR_MODE_TO_QR_CODE = "qr-pwa-color-mode-for-qr-code";
 
 function loadAndApplyColorModeFromLocalStorage() {
   var colorMode = localStorage.getItem(LS_COLOR_MODE) || "dark-mode";
-  var applyColorModeToQrCode = localStorage.getItem(LS_APPLY_COLOR_MODE_TO_QR_CODE) !== "false";
+  var applyColorModeToQrCode = localStorage.getItem(LS_APPLY_COLOR_MODE_TO_QR_CODE) === "true";
   setColorMode(colorMode, false);
   setColorModeApplicabilityForQrCode(applyColorModeToQrCode, false);
 }
@@ -138,6 +138,8 @@ function setColorModeApplicabilityForQrCode(applyColorModeToQrCode) {
   } else {
     qrWrapper.classList.remove("apply-color-mode");
   }
+
+  document.getElementById("checkbox-apply-color-mode-to-qr-code").checked = applyColorModeToQrCode;
 
   if (saveToLocalStorage) {
     localStorage.setItem(LS_APPLY_COLOR_MODE_TO_QR_CODE, applyColorModeToQrCode);
