@@ -1,5 +1,11 @@
 # QR PWA
-used libraries:
+
+Create and scan QR codes with this Progressive Web App on https://nikolockenvitz.github.io/qr-pwa.
+
+![Screenshot](https://github.com/nikolockenvitz/website/raw/master/projects/img/qr-pwa.png)
+
+
+Used libraries:
 * https://github.com/nimiq/qr-scanner
 * https://github.com/nayuki/QR-Code-generator
 
