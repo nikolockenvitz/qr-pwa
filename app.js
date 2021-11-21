@@ -8,6 +8,7 @@ const tabs = {
     "settings": { btnId: "btn-settings", boxId: "box-settings" },
 };
 let activeTabId = null;
+let currentSvgContent = "";
 
 window.onload = function () {
     loadAndApplyColorModeFromLocalStorage();
@@ -15,6 +16,7 @@ window.onload = function () {
     let txtScanResult = document.getElementById("txt-qr-scan-result");
 
     let qrWrapper = document.getElementById("div-qr-wrapper");
+    const btnDownloadSvg = document.getElementById("btn-download-svg");
 
     inputCreateQr.value = "";
     qrWrapper.innerHTML = "";
@@ -37,8 +39,9 @@ window.onload = function () {
 
     inputCreateQr.addEventListener("input", function () {
         let text = inputCreateQr.value;
-        showQrCode(text, qrWrapper);
+        showQrCode(text, qrWrapper, btnDownloadSvg);
     });
+    btnDownloadSvg.addEventListener("click", () => downloadSvg(qrWrapper));
     document.getElementById("btn-qr-scan-result-copy").addEventListener("click", function () {
         utils.copyTextToClipboard(txtScanResult.textContent);
     });
@@ -60,7 +63,7 @@ window.onload = function () {
             text = text.substring(0, text.length - "/index.html".length)
         }
         inputCreateQr.value = text;
-        showQrCode(text, qrWrapper);
+        showQrCode(text, qrWrapper, btnDownloadSvg);
     });
 
     inputCreateQr.value = "";
@@ -68,13 +71,27 @@ window.onload = function () {
     showTab("create");
 };
 
-function showQrCode (text, qrWrapper) {
+function showQrCode (text, qrWrapper, downloadButton) {
     if (text) {
         let svg = getQrCodeSVG(text);
-        qrWrapper.innerHTML = svg;
+        currentSvgContent = svg;
     } else {
-        qrWrapper.innerHTML = "";
+        currentSvgContent = "";
     }
+    qrWrapper.innerHTML = currentSvgContent;
+    downloadButton.classList[currentSvgContent ? "remove" : "add"]("hidden");
+}
+
+function downloadSvg (baseElement) {
+    const data = (new XMLSerializer()).serializeToString(baseElement.querySelector("svg"));
+    const svgBlob = new Blob([data], {type: 'image/svg+xml;charset=utf-8'});
+    const dataUrl = URL.createObjectURL(svgBlob);
+
+    const a = document.createElement('a');
+    a.setAttribute('download', 'qrcode.svg');
+    a.setAttribute('href', dataUrl);
+    a.setAttribute('target', '_blank');
+    a.click();
 }
 
 function showTab (tabId) {

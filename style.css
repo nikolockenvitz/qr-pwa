@@ -180,3 +180,10 @@ textarea {
     color: #ccc;
     box-shadow: 4px 8px 16px 0 rgba(100,100,100,0.4);
 }
+
+#btn-download-svg {
+    margin: 1em 0;
+}
+.hidden {
+    display: none;
+}
