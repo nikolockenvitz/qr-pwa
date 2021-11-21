@@ -187,3 +187,7 @@ textarea {
 .hidden {
     display: none;
 }
+
+a {
+    color: #6666ff;
+}
