@@ -28,12 +28,14 @@ var tabs = {
   }
 };
 var activeTabId = null;
+var currentSvgContent = "";
 
 window.onload = function () {
   loadAndApplyColorModeFromLocalStorage();
   var inputCreateQr = document.getElementById("input-create-qr");
   var txtScanResult = document.getElementById("txt-qr-scan-result");
   var qrWrapper = document.getElementById("div-qr-wrapper");
+  var btnDownloadSvg = document.getElementById("btn-download-svg");
   inputCreateQr.value = "";
   qrWrapper.innerHTML = "";
   document.getElementById(tabs["create"].btnId).addEventListener("click", function () {
@@ -54,7 +56,10 @@ window.onload = function () {
   });
   inputCreateQr.addEventListener("input", function () {
     var text = inputCreateQr.value;
-    showQrCode(text, qrWrapper);
+    showQrCode(text, qrWrapper, btnDownloadSvg);
+  });
+  btnDownloadSvg.addEventListener("click", function () {
+    return downloadSvg(qrWrapper);
   });
   document.getElementById("btn-qr-scan-result-copy").addEventListener("click", function () {
     utils.copyTextToClipboard(txtScanResult.textContent);
@@ -78,20 +83,36 @@ window.onload = function () {
     }
 
     inputCreateQr.value = text;
-    showQrCode(text, qrWrapper);
+    showQrCode(text, qrWrapper, btnDownloadSvg);
   });
   inputCreateQr.value = "";
   qrWrapper.innerHTML = "";
   showTab("create");
 };
 
-function showQrCode(text, qrWrapper) {
+function showQrCode(text, qrWrapper, downloadButton) {
   if (text) {
     var svg = (0, _qrGenerator.getQrCodeSVG)(text);
-    qrWrapper.innerHTML = svg;
+    currentSvgContent = svg;
   } else {
-    qrWrapper.innerHTML = "";
+    currentSvgContent = "";
   }
+
+  qrWrapper.innerHTML = currentSvgContent;
+  downloadButton.classList[currentSvgContent ? "remove" : "add"]("hidden");
+}
+
+function downloadSvg(baseElement) {
+  var data = new XMLSerializer().serializeToString(baseElement.querySelector("svg"));
+  var svgBlob = new Blob([data], {
+    type: 'image/svg+xml;charset=utf-8'
+  });
+  var dataUrl = URL.createObjectURL(svgBlob);
+  var a = document.createElement('a');
+  a.setAttribute('download', 'qrcode.svg');
+  a.setAttribute('href', dataUrl);
+  a.setAttribute('target', '_blank');
+  a.click();
 }
 
 function showTab(tabId) {
