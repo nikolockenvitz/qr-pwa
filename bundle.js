@@ -2,17 +2,11 @@
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 var _qrScanner = require("./qr-scanner");
-
 var _qrGenerator = require("./qr-generator");
-
 var utils = _interopRequireWildcard(require("./utils"));
-
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
 var tabs = {
   "create": {
     btnId: "btn-create-qr",
@@ -29,7 +23,6 @@ var tabs = {
 };
 var activeTabId = null;
 var currentSvgContent = "";
-
 window.onload = function () {
   loadAndApplyColorModeFromLocalStorage();
   var inputCreateQr = document.getElementById("input-create-qr");
@@ -45,7 +38,6 @@ window.onload = function () {
     txtScanResult.textContent = "";
     showTab("scan");
     document.getElementById(tabs["scan"].boxId).style.display = "none"; // hide box until qr is scanned
-
     (0, _qrScanner.startQrScanner)(function (result) {
       showTab("scan");
       txtScanResult.textContent = result;
@@ -77,11 +69,9 @@ window.onload = function () {
   document.getElementById("btn-share").addEventListener("click", function () {
     showTab("create");
     var text = window.location.href;
-
     if (text.endsWith("/index.html")) {
       text = text.substring(0, text.length - "/index.html".length);
     }
-
     inputCreateQr.value = text;
     showQrCode(text, qrWrapper, btnDownloadSvg);
   });
@@ -89,7 +79,6 @@ window.onload = function () {
   qrWrapper.innerHTML = "";
   showTab("create");
 };
-
 function showQrCode(text, qrWrapper, downloadButton) {
   if (text) {
     var svg = (0, _qrGenerator.getQrCodeSVG)(text);
@@ -97,11 +86,9 @@ function showQrCode(text, qrWrapper, downloadButton) {
   } else {
     currentSvgContent = "";
   }
-
   qrWrapper.innerHTML = currentSvgContent;
   downloadButton.classList[currentSvgContent ? "remove" : "add"]("hidden");
 }
-
 function downloadSvg(baseElement) {
   var data = new XMLSerializer().serializeToString(baseElement.querySelector("svg"));
   var svgBlob = new Blob([data], {
@@ -114,7 +101,6 @@ function downloadSvg(baseElement) {
   a.setAttribute('target', '_blank');
   a.click();
 }
-
 function showTab(tabId) {
   hideActiveTab();
   var tab = tabs[tabId];
@@ -122,7 +108,6 @@ function showTab(tabId) {
   document.getElementById(tab.boxId).style.display = "block";
   activeTabId = tabId;
 }
-
 function hideActiveTab() {
   var tab = tabs[activeTabId];
   if (!tab) return;
@@ -130,38 +115,30 @@ function hideActiveTab() {
   document.getElementById(tab.boxId).style.display = "none";
   document.getElementById("btn-stop-qr-scanner").style.display = "none";
 }
-
 var LS_COLOR_MODE = "qr-pwa-color-mode";
 var LS_APPLY_COLOR_MODE_TO_QR_CODE = "qr-pwa-color-mode-for-qr-code";
-
 function loadAndApplyColorModeFromLocalStorage() {
   var colorMode = localStorage.getItem(LS_COLOR_MODE) || "dark-mode";
   var applyColorModeToQrCode = localStorage.getItem(LS_APPLY_COLOR_MODE_TO_QR_CODE) === "true";
   setColorMode(colorMode, false);
   setColorModeApplicabilityForQrCode(applyColorModeToQrCode, false);
 }
-
 function setColorMode(colorMode) {
   var saveToLocalStorage = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
   document.body.setAttribute("data-color-mode", colorMode);
-
   if (saveToLocalStorage) {
     localStorage.setItem(LS_COLOR_MODE, colorMode);
   }
 }
-
 function setColorModeApplicabilityForQrCode(applyColorModeToQrCode) {
   var saveToLocalStorage = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
   var qrWrapper = document.getElementById("div-qr-wrapper");
-
   if (applyColorModeToQrCode) {
     qrWrapper.classList.add("apply-color-mode");
   } else {
     qrWrapper.classList.remove("apply-color-mode");
   }
-
   document.getElementById("checkbox-apply-color-mode-to-qr-code").checked = applyColorModeToQrCode;
-
   if (saveToLocalStorage) {
     localStorage.setItem(LS_APPLY_COLOR_MODE_TO_QR_CODE, applyColorModeToQrCode);
   }
@@ -174,13 +151,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
 // MIT License - Copyright (c) 2017 Nimiq, danimoh - https://github.com/nimiq/qr-scanner
 var e = /*#__PURE__*/function () {
   _createClass(e, null, [{
@@ -195,12 +168,9 @@ var e = /*#__PURE__*/function () {
       });
     }
   }]);
-
   function e(a, c) {
     var b = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : e.DEFAULT_CANVAS_SIZE;
-
     _classCallCheck(this, e);
-
     this.$video = a;
     this.$canvas = document.createElement("canvas");
     this._onDecode = c;
@@ -221,7 +191,6 @@ var e = /*#__PURE__*/function () {
     document.addEventListener("visibilitychange", this._onVisibilityChange);
     this._qrWorker = new Worker(e.WORKER_PATH);
   }
-
   _createClass(e, [{
     key: "destroy",
     value: function destroy() {
@@ -229,7 +198,6 @@ var e = /*#__PURE__*/function () {
       this.$video.removeEventListener("play", this._onPlay);
       document.removeEventListener("visibilitychange", this._onVisibilityChange);
       this.stop();
-
       this._qrWorker.postMessage({
         type: "close"
       });
@@ -238,7 +206,6 @@ var e = /*#__PURE__*/function () {
     key: "start",
     value: function start() {
       var _this = this;
-
       if (this._active && !this._paused) return Promise.resolve();
       "https:" !== window.location.protocol && console.warn("The camera stream is only accessible if the page is transferred via https.");
       this._active = !0;
@@ -253,7 +220,6 @@ var e = /*#__PURE__*/function () {
         return _this._getCameraStream();
       }).then(function (c) {
         _this.$video.srcObject = c;
-
         _this._setVideoMirror(a);
       })["catch"](function (a) {
         _this._active = !1;
@@ -270,11 +236,9 @@ var e = /*#__PURE__*/function () {
     key: "pause",
     value: function pause() {
       var _this2 = this;
-
       this._paused = !0;
       this._active && (this.$video.pause(), this._offTimeout || (this._offTimeout = setTimeout(function () {
         var a = _this2.$video.srcObject && _this2.$video.srcObject.getTracks()[0];
-
         a && (a.stop(), _this2._offTimeout = _this2.$video.srcObject = null);
       }, 300)));
     }
@@ -282,7 +246,6 @@ var e = /*#__PURE__*/function () {
     key: "setGrayscaleWeights",
     value: function setGrayscaleWeights(a, c, b) {
       var d = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : !0;
-
       this._qrWorker.postMessage({
         type: "grayscaleWeights",
         data: {
@@ -305,14 +268,12 @@ var e = /*#__PURE__*/function () {
     key: "_onCanPlay",
     value: function _onCanPlay() {
       this._updateSourceRect();
-
       this.$video.play();
     }
   }, {
     key: "_onPlay",
     value: function _onPlay() {
       this._updateSourceRect();
-
       this._scanFrame();
     }
   }, {
@@ -332,7 +293,6 @@ var e = /*#__PURE__*/function () {
     key: "_scanFrame",
     value: function _scanFrame() {
       var _this3 = this;
-
       if (!this._active || this.$video.paused || this.$video.ended) return !1;
       requestAnimationFrame(function () {
         e.scanImage(_this3.$video, _this3._sourceRect, _this3._qrWorker, _this3.$canvas, !0).then(_this3._onDecode, function (a) {
@@ -366,7 +326,6 @@ var e = /*#__PURE__*/function () {
     key: "_getMatchingCameraStream",
     value: function _getMatchingCameraStream(a) {
       var _this4 = this;
-
       return 0 === a.length ? Promise.reject("Camera not found.") : navigator.mediaDevices.getUserMedia({
         video: a.shift()
       })["catch"](function () {
@@ -387,39 +346,34 @@ var e = /*#__PURE__*/function () {
       var f = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : !1;
       var g = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : !1;
       var h = !1,
-          l = new Promise(function (l, g) {
-        b || (b = new Worker(e.WORKER_PATH), h = !0, b.postMessage({
-          type: "inversionMode",
-          data: "both"
-        }));
-
-        var n, _m, _k;
-
-        _m = function m(a) {
-          "qrResult" === a.data.type && (b.removeEventListener("message", _m), b.removeEventListener("error", _k), clearTimeout(n), null !== a.data.data ? l(a.data.data) : g("QR code not found."));
-        };
-
-        _k = function k(a) {
-          b.removeEventListener("message", _m);
-          b.removeEventListener("error", _k);
-          clearTimeout(n);
-          g("Scanner error: " + (a ? a.message || a : "Unknown Error"));
-        };
-
-        b.addEventListener("message", _m);
-        b.addEventListener("error", _k);
-        n = setTimeout(function () {
-          return _k("timeout");
-        }, 3E3);
-
-        e._loadImage(a).then(function (a) {
-          a = e._getImageData(a, c, d, f);
-          b.postMessage({
-            type: "decode",
-            data: a
-          }, [a.data.buffer]);
-        })["catch"](_k);
-      });
+        l = new Promise(function (l, g) {
+          b || (b = new Worker(e.WORKER_PATH), h = !0, b.postMessage({
+            type: "inversionMode",
+            data: "both"
+          }));
+          var n, _m, _k;
+          _m = function m(a) {
+            "qrResult" === a.data.type && (b.removeEventListener("message", _m), b.removeEventListener("error", _k), clearTimeout(n), null !== a.data.data ? l(a.data.data) : g("QR code not found."));
+          };
+          _k = function k(a) {
+            b.removeEventListener("message", _m);
+            b.removeEventListener("error", _k);
+            clearTimeout(n);
+            g("Scanner error: " + (a ? a.message || a : "Unknown Error"));
+          };
+          b.addEventListener("message", _m);
+          b.addEventListener("error", _k);
+          n = setTimeout(function () {
+            return _k("timeout");
+          }, 3E3);
+          e._loadImage(a).then(function (a) {
+            a = e._getImageData(a, c, d, f);
+            b.postMessage({
+              type: "decode",
+              data: a
+            }, [a.data.buffer]);
+          })["catch"](_k);
+        });
       c && g && (l = l["catch"](function () {
         return e.scanImage(a, null, b, d, f);
       }));
@@ -437,8 +391,8 @@ var e = /*#__PURE__*/function () {
       var d = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : !1;
       b = b || document.createElement("canvas");
       var f = c && c.x ? c.x : 0,
-          g = c && c.y ? c.y : 0,
-          h = c && c.width ? c.width : a.width || a.videoWidth;
+        g = c && c.y ? c.y : 0,
+        h = c && c.width ? c.width : a.width || a.videoWidth;
       c = c && c.height ? c.height : a.height || a.videoHeight;
       d || b.width === h && b.height === c || (b.width = h, b.height = c);
       d = b.getContext("2d", {
@@ -455,7 +409,6 @@ var e = /*#__PURE__*/function () {
       if (a instanceof Image) return e._awaitImageLoad(a).then(function () {
         return a;
       });
-
       if (a instanceof File || a instanceof URL || "string" === typeof a) {
         var c = new Image();
         c.src = a instanceof File ? URL.createObjectURL(a) : a;
@@ -464,7 +417,6 @@ var e = /*#__PURE__*/function () {
           return c;
         });
       }
-
       return Promise.reject("Unsupported image type.");
     }
   }, {
@@ -473,29 +425,24 @@ var e = /*#__PURE__*/function () {
       return new Promise(function (c, b) {
         if (a.complete && 0 !== a.naturalWidth) c();else {
           var _d, _f;
-
           _d = function d() {
             a.removeEventListener("load", _d);
             a.removeEventListener("error", _f);
             c();
           };
-
           _f = function f() {
             a.removeEventListener("load", _d);
             a.removeEventListener("error", _f);
             b("Image load error");
           };
-
           a.addEventListener("load", _d);
           a.addEventListener("error", _f);
         }
       });
     }
   }]);
-
   return e;
 }();
-
 e.DEFAULT_CANVAS_SIZE = 400;
 e.WORKER_PATH = "qr-scanner-worker.min.js";
 var _default = e;
@@ -508,12 +455,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.getQrCodeSVG = getQrCodeSVG;
-var QR_CODE_DEFAULT_ECC = qrcodegen.QrCode.Ecc.MEDIUM;
-var QR_CODE_DEFAULT_BORDER_SIZE = 4;
-
+window.QR_CODE_DEFAULT_ECC = qrcodegen.QrCode.Ecc.MEDIUM;
+window.QR_CODE_DEFAULT_BORDER_SIZE = 4;
 function getQrCodeSVG(content) {
-  var qrcode = qrcodegen.QrCode.encodeText(content, QR_CODE_DEFAULT_ECC);
-  return qrcode.toSvgString(QR_CODE_DEFAULT_BORDER_SIZE);
+  var qrcode = qrcodegen.QrCode.encodeText(content, window.QR_CODE_DEFAULT_ECC);
+  return qrcode.toSvgString(window.QR_CODE_DEFAULT_BORDER_SIZE);
 }
 
 },{}],4:[function(require,module,exports){
@@ -523,11 +469,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.startQrScanner = startQrScanner;
-
 var _qrScannerMin = _interopRequireDefault(require("./lib/qr-scanner.min.js"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
 _qrScannerMin["default"].WORKER_PATH = './lib/qr-scanner-worker.min.js';
 _qrScannerMin["default"].DEFAULT_CANVAS_SIZE = 1000;
 var video = document.getElementById("camera-view");
@@ -538,7 +481,6 @@ var qrScannerFrameBlurE = document.getElementById("qr-scanner-frame-blur-e");
 var qrScannerFrameBlurS = document.getElementById("qr-scanner-frame-blur-s");
 var qrScannerFrameBlurW = document.getElementById("qr-scanner-frame-blur-w");
 var qrScanner = null;
-
 function startQrScanner(callback) {
   // TODO: what if qrScanner already running?
   qrScanner = new _qrScannerMin["default"](video, function (result) {
@@ -551,35 +493,28 @@ function startQrScanner(callback) {
   showStopQrScannerButton();
   showQrScannerFrame();
 }
-
 function stopQrScanner() {
   if (qrScanner) {
     qrScanner.destroy();
   }
-
   qrScanner = null;
   hideQrScannerVideo();
   hideStopQrScannerButton();
   hideQrScannerFrame();
 }
-
 function showQrScannerVideo() {
   video.style.visibility = "visible";
 }
-
 function hideQrScannerVideo() {
   video.style.visibility = "hidden";
 }
-
 function showStopQrScannerButton() {
   btnStopQrScanner.style.display = "inline";
   btnStopQrScanner.addEventListener("click", stopQrScanner);
 }
-
 function hideStopQrScannerButton() {
   btnStopQrScanner.style.display = "none";
 }
-
 function showQrScannerFrame() {
   function t() {
     if (video.clientWidth === 300 && video.clientHeight === 150) {
@@ -587,13 +522,11 @@ function showQrScannerFrame() {
     } else {
       var RATIO_HIGHLIGHTED = 0.7;
       var BORDER_SIZE = 5;
-
       var _video$getBoundingCli = video.getBoundingClientRect(),
-          x = _video$getBoundingCli.x,
-          y = _video$getBoundingCli.y,
-          width = _video$getBoundingCli.width,
-          height = _video$getBoundingCli.height;
-
+        x = _video$getBoundingCli.x,
+        y = _video$getBoundingCli.y,
+        width = _video$getBoundingCli.width,
+        height = _video$getBoundingCli.height;
       var frameSize = Math.min(width, height) * RATIO_HIGHLIGHTED;
       var frameX = x + (width - frameSize) / 2;
       var frameY = y + (height - frameSize) / 2;
@@ -624,10 +557,8 @@ function showQrScannerFrame() {
       qrScannerFrameBlurW.style.display = "block";
     }
   }
-
   t();
 }
-
 function hideQrScannerFrame() {
   qrScannerFrame.style.display = "none";
   qrScannerFrameBlurN.style.display = "none";
@@ -635,7 +566,6 @@ function hideQrScannerFrame() {
   qrScannerFrameBlurS.style.display = "none";
   qrScannerFrameBlurW.style.display = "none";
 }
-
 window.addEventListener("resize", function () {
   if (qrScannerFrame.offsetWidth > 0 && qrScannerFrame.offsetHeight > 0) {
     showQrScannerFrame();
@@ -650,7 +580,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.copyTextToClipboard = copyTextToClipboard;
 exports.showToast = showToast;
-
 function copyTextToClipboard(text) {
   var input = document.getElementById("input-copy-to-clipboard");
   input.value = text;
@@ -660,18 +589,15 @@ function copyTextToClipboard(text) {
   input.blur();
   showToast("Copied to Clipboard!");
 }
-
 function showToast(text) {
   var durationInSeconds = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
   var boxToasts = document.getElementById("div-toasts");
   var toast = boxToasts.getElementsByTagName("template")[0].content.children[0].cloneNode(true);
   toast.innerText = text; // TODO!
-
   boxToasts.appendChild(toast);
   toast.style.opacity = 1;
   setTimeout(function () {
     toast.style.opacity = 0; // fade out
-
     setTimeout(function () {
       boxToasts.removeChild(toast);
     }, 3000);
