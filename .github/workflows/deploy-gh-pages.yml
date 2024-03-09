@@ -3,22 +3,21 @@ on:
   push:
     branches:
       - master
+permissions:
+  contents: write
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          persist-credentials: false
+        uses: actions/checkout@v3
 
       - name: Install and Build
         run: |
           npm install
           npm run build
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@releases/v3 # https://github.com/marketplace/actions/deploy-to-github-pages
+        uses: JamesIves/github-pages-deploy-action@v4 # https://github.com/marketplace/actions/deploy-to-github-pages
         with:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: dist
+          branch: gh-pages
+          folder: dist
